@@ -14,6 +14,12 @@
     <h1>數位員工介接平台</h1>
     <p class="sub"><span id="count">—</span> 位員工，點選員工就能直接問問題</p>
   </div>
+  <div class="usage" title="這個網頁自己估算的用量，只計算在這台裝置的瀏覽器上問的問題">
+    <span class="usage-label">用量估計</span>
+    <span id="usageToday">今天 0 題</span>
+    <span id="usageMonth">本月 0 題</span>
+    <a href="https://claude.ai/settings/usage" target="_blank" rel="noopener">查看實際剩餘額度 ↗</a>
+  </div>
   <button id="settingsBtn" class="ghost" type="button" title="設定 API Key 與模型">⚙️ 設定</button>
 </header>
 
@@ -51,6 +57,7 @@
     <div id="dInfoBody"></div>
   </details>
   <div id="messages" class="messages"></div>
+  <p id="nextCost" class="next-cost muted small"></p>
   <form id="askForm" class="ask">
     <textarea id="question" rows="3" placeholder="輸入你的問題，Enter 送出，Shift+Enter 換行"></textarea>
     <div class="ask-actions">
