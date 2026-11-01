@@ -231,6 +231,7 @@
     }
     for (const m of h) box.append(msgEl(m.role, m.content));
     box.scrollTop = box.scrollHeight;
+    renderNextCost();
   }
 
   async function getPrompt(e) {
@@ -242,6 +243,48 @@
     const p = state.promptCache[e.group][e.id];
     if (!p) throw new Error("找不到這位員工的角色設定");
     return p;
+  }
+
+
+  // ---------- usage meter (estimate) ----------
+  // The page cannot read the real subscription quota, so it keeps its own
+  // estimate of what it has sent and received, per day and per month, in this browser.
+  function estTokens(str) {
+    let ascii = 0, other = 0;
+    for (const ch of str) { if (ch.charCodeAt(0) < 128) ascii++; else other++; }
+    return Math.round(ascii / 4 + other * 1.1);
+  }
+  const dayKey = () => new Date().toLocaleDateString("sv-SE");          // YYYY-MM-DD, local time
+  const monthKey = () => dayKey().slice(0, 7);
+  function readUsage(key) {
+    try { return JSON.parse(LS.get(key, "")) || { q: 0, inTok: 0, outTok: 0 }; } catch { return { q: 0, inTok: 0, outTok: 0 }; }
+  }
+  function recordUsage(inTok, outTok) {
+    for (const key of ["usage:" + dayKey(), "usage:" + monthKey()]) {
+      const u = readUsage(key);
+      u.q += 1; u.inTok += inTok; u.outTok += outTok;
+      LS.set(key, JSON.stringify(u));
+    }
+    renderUsage();
+  }
+  const fmtTok = (n) => n >= 10000 ? (n / 10000).toFixed(1) + " 萬" : n.toLocaleString("zh-TW");
+  function renderUsage() {
+    const d = readUsage("usage:" + dayKey());
+    const m = readUsage("usage:" + monthKey());
+    $("usageToday").textContent = `今天 ${d.q} 題・約 ${fmtTok(d.inTok + d.outTok)} tokens`;
+    $("usageMonth").textContent = `本月 ${m.q} 題・約 ${fmtTok(m.inTok + m.outTok)} tokens`;
+  }
+  async function renderNextCost() {
+    const e = state.current;
+    const el = $("nextCost");
+    if (!e) return;
+    try {
+      const sys = await getPrompt(e);
+      if (state.current !== e) return;
+      const hist = history_(e.id).reduce((n, m) => n + estTokens(m.content), 0);
+      const n = estTokens(sys) + hist;
+      el.textContent = `下一題約送出 ${fmtTok(n)} tokens（角色設定 ${fmtTok(estTokens(sys))} ＋ 對話紀錄 ${fmtTok(hist)}）`;
+    } catch { el.textContent = ""; }
   }
 
   // ---------- chat ----------
@@ -268,9 +311,11 @@
       const system = await getPrompt(e);
       state.abort = new AbortController();
       if (state.sample) {
+        const sent = estTokens(system) + h.reduce((n, m) => n + estTokens(m.content), 0);
         text = await askViaClaudeAi(system, h, out, box);
         h.push({ role: "assistant", content: text });
         saveHistory(e.id);
+        recordUsage(sent, estTokens(text));
         return;
       }
       const res = await fetch(API_URL, {
@@ -326,6 +371,7 @@
       if (stop === "refusal") text += "\n\n_（模型拒絕回答這個問題）_";
       if (!text) text = "_（沒有收到回覆內容）_";
       out.innerHTML = mdToHtml(text);
+      recordUsage(estTokens(system) + h.reduce((n, m) => n + estTokens(m.content), 0), estTokens(text));
       h.push({ role: "assistant", content: text });
       saveHistory(e.id);
     } catch (err) {
@@ -469,6 +515,7 @@
   }
 
   wire();
+  renderUsage();
   if (window.claude && typeof window.claude.use === "function") {
     window.claude.use("sample").then((fn) => {
       if (!fn) return;
