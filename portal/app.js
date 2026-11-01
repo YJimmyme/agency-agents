@@ -24,6 +24,7 @@
     histories: {},
     busy: false,
     abort: null,
+    sample: null,   // claude.ai artifact runtime: answers on the viewer's own Claude account
   };
 
   // ---------- catalog ----------
@@ -223,7 +224,7 @@
     if (!h.length) {
       const p = document.createElement("p");
       p.className = "hint";
-      p.textContent = hasKey()
+      p.textContent = canChat()
         ? `直接問「${e.title}」問題吧。它會用自己的角色設定回答你。`
         : "還沒設定 API Key：請按右上角「⚙️ 設定」貼上 Anthropic API Key。也可以先按「複製角色設定」，貼到 claude.ai 的對話裡使用。";
       box.append(p);
@@ -245,11 +246,12 @@
 
   // ---------- chat ----------
   const hasKey = () => !!LS.get("anthropic_api_key");
+  const canChat = () => !!state.sample || hasKey();
 
   async function send(question) {
     const e = state.current;
     if (!e || state.busy) return;
-    if (!hasKey()) { openSettings(); return; }
+    if (!canChat()) { openSettings(); return; }
     const h = history_(e.id);
     h.push({ role: "user", content: question });
     saveHistory(e.id);
@@ -265,6 +267,12 @@
     try {
       const system = await getPrompt(e);
       state.abort = new AbortController();
+      if (state.sample) {
+        text = await askViaClaudeAi(system, h, out, box);
+        h.push({ role: "assistant", content: text });
+        saveHistory(e.id);
+        return;
+      }
       const res = await fetch(API_URL, {
         method: "POST",
         signal: state.abort.signal,
@@ -336,6 +344,39 @@
     } finally {
       state.abort = null;
       setBusy(false);
+    }
+  }
+
+  // Inside claude.ai: the `sample` capability answers on the viewer's own account.
+  // It has no system prompt, so the role prompt goes in a leading user turn.
+  async function askViaClaudeAi(system, h, out, box) {
+    const rules = "以下是你這次要扮演的角色設定。請完全以這個角色的身分、專業與工作方法回答後面的問題，"
+      + "不要提到你在扮演角色。\n\n<role>\n" + system + "\n</role>";
+    const turns = h.slice(-20).map((m) => ({ role: m.role, content: m.content }));
+    while (turns.length && turns[0].role !== "user") turns.shift();
+    try {
+      const res = await state.sample([{ role: "user", content: rules }, ...turns], {
+        cache: false,
+        signal: state.abort.signal,
+        onText: ({ text }) => { out.innerHTML = mdToHtml(text); box.scrollTop = box.scrollHeight; },
+      });
+      let text = res.text;
+      if (res.truncated) text += "\n\n_（回答太長被截斷，可以請它「繼續」）_";
+      out.innerHTML = mdToHtml(text);
+      return text;
+    } catch (err) {
+      const map = {
+        cancelled: "已停止",
+        not_granted: "你沒有允許這個網頁使用 Claude。重新整理頁面後，在跳出的視窗按允許即可。",
+        sampling_disabled: "這個帳號目前無法在網頁中使用 Claude。",
+        rate_limited: "使用太頻繁或已達用量上限，請稍後再試。",
+        session_expired: "登入已過期，請重新登入 claude.ai。",
+        refused: "Claude 拒絕回答這個問題，換個問法試試看。",
+        prompt_too_large: "對話太長了，請按「清除對話」後再問。",
+      };
+      const e = new Error(map[err?.code] || ("呼叫 Claude 失敗：" + (err?.message || err?.code || "未知錯誤")));
+      if (err?.code === "cancelled") e.name = "AbortError";
+      throw e;
     }
   }
 
@@ -428,6 +469,14 @@
   }
 
   wire();
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("sample").then((fn) => {
+      if (!fn) return;
+      state.sample = fn;
+      $("settingsBtn").hidden = true;
+      if (state.current) renderMessages();
+    }).catch(() => {});
+  }
   loadCatalog().catch((err) => {
     const p = document.createElement("p");
     p.className = "empty";
