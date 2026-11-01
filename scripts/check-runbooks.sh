@@ -44,7 +44,7 @@ except json.JSONDecodeError as e:
     print(f"ERROR {JSON} is not valid JSON: {e}"); sys.exit(1)
 
 # Real slugs = filename stems of tracked agent .md files under division dirs.
-NON_DIVISION = {"integrations", "examples", "strategy", "scripts", ".github"}
+NON_DIVISION = {"integrations", "examples", "strategy", "scripts", "portal", ".github"}
 tracked = subprocess.check_output(["git", "ls-files", "*/*.md"]).decode().splitlines()
 real = {os.path.basename(p)[:-3] for p in tracked if p.split("/")[0] not in NON_DIVISION}
 
