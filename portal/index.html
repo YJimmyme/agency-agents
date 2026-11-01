@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>數位員工介接平台</title>
+<link rel="stylesheet" href="style.css">
+<script src="vendor/marked.min.js"></script>
+<script src="vendor/purify.min.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1>數位員工介接平台</h1>
+    <p class="sub"><span id="count">—</span> 位員工，點選員工就能直接問問題</p>
+  </div>
+  <button id="settingsBtn" class="ghost" type="button" title="設定 API Key 與模型">⚙️ 設定</button>
+</header>
+
+<section class="controls">
+  <input id="search" type="search" placeholder="搜尋職務、負責工作或英文名稱，例如：資安、SEO、合約、財務…" autocomplete="off">
+  <div class="row">
+    <label class="sel">來源
+      <select id="sourceFilter">
+        <option value="">全部</option>
+        <option value="UniEmployee">UniEmployee 企業數位員工</option>
+        <option value="agency-agents">agency-agents 專家角色</option>
+      </select>
+    </label>
+    <span id="resultCount" class="muted"></span>
+  </div>
+  <div id="chips" class="chips" role="tablist" aria-label="部門"></div>
+</section>
+
+<main id="grid" class="grid" aria-live="polite"></main>
+
+<!-- Chat drawer -->
+<aside id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="who">
+      <span id="dEmoji" class="emoji"></span>
+      <div>
+        <div id="dTitle" class="d-title"></div>
+        <div id="dName" class="muted small"></div>
+      </div>
+    </div>
+    <button id="closeDrawer" class="ghost icon" type="button" aria-label="關閉">✕</button>
+  </div>
+  <details id="dInfo" class="d-info">
+    <summary>職務說明</summary>
+    <div id="dInfoBody"></div>
+  </details>
+  <div id="messages" class="messages"></div>
+  <form id="askForm" class="ask">
+    <textarea id="question" rows="3" placeholder="輸入你的問題，Enter 送出，Shift+Enter 換行"></textarea>
+    <div class="ask-actions">
+      <button id="clearChat" class="ghost" type="button">清除對話</button>
+      <button id="copyPrompt" class="ghost" type="button" title="複製這位員工的角色設定，可貼到 claude.ai 使用">複製角色設定</button>
+      <button id="sendBtn" class="primary" type="submit">送出</button>
+    </div>
+  </form>
+</aside>
+<div id="scrim" class="scrim" hidden></div>
+
+<!-- Settings dialog -->
+<dialog id="settings">
+  <form method="dialog" class="settings">
+    <h2>設定</h2>
+    <label>Anthropic API Key
+      <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off">
+    </label>
+    <p class="muted small">Key 只會存在這台電腦的瀏覽器（localStorage），由瀏覽器直接呼叫 Anthropic API，不會經過其他伺服器。到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a> 申請。</p>
+    <label>模型
+      <select id="model">
+        <option value="claude-sonnet-5-5">Claude Sonnet 5.5（建議）</option>
+        <option value="claude-opus-5-5">Claude Opus 5.5（最強）</option>
+        <option value="claude-haiku-5-5">Claude Haiku 5.5（最快最省）</option>
+      </select>
+    </label>
+    <div class="settings-actions">
+      <button id="clearKey" class="ghost" type="button">刪除 Key</button>
+      <button value="ok" class="primary">儲存</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+# 角色檔名(slug)	職務	負責工作
+academic-anthropologist	人類學家	研究文化體系、儀式、親屬與信仰，用民族誌方法打造可信的文化設定
+academic-geographer	地理學家	分析自然與人文地理、氣候與製圖，確保地理與空間設定合理
+academic-historian	歷史學家	做歷史分析、分期與史料考證，檢查內容的歷史一致性
+academic-narratologist	敘事學家	運用敘事理論分析故事結構、角色弧線與文學表現
+academic-psychologist	心理學家	分析人類行為、人格與動機，讓角色與設計在心理上站得住腳
+academic-statistician	統計學家	設計量化研究與實驗、做統計推論，檢驗結論是否禁得起數據考驗
+design-brand-guardian	品牌守護者	建立品牌識別、維持品牌一致性與品牌策略
+design-image-prompt-engineer	圖像提示詞工程師	撰寫 AI 生圖用的攝影級提示詞，控制構圖、光線與風格
+design-inclusive-visuals-specialist	多元包容視覺專家	避開 AI 生圖的刻板偏見，產出文化正確、具代表性的視覺
+design-persona-walkthrough	人物誌走查專家	以特定使用者人物誌模擬瀏覽網頁，找出情緒與認知上的卡點
+design-ui-designer	UI 設計師	設計視覺系統、元件庫與精緻的介面畫面
+design-ui-finish-gate-reviewer	UI 上線前審查員	在上線前審查介面，揪出千篇一律、缺乏特色的 UI
+design-ux-architect	UX 架構師	為開發者打好 UX 與 CSS 架構基礎，規劃清楚的實作方向
+design-ux-researcher	UX 研究員	做使用者行為分析與易用性測試，用數據驅動設計決策
+design-visual-storyteller	視覺敘事師	用視覺、多媒體內容說故事，打造有感染力的品牌敘事
+design-whimsy-injector	趣味體驗設計師	為品牌與產品加入個性、驚喜與好玩的互動細節
+engineering-ai-data-remediation-engineer	AI 資料修復工程師	用本地小模型與語意分群自動偵測並修復大量異常資料，確保零資料遺失
+engineering-ai-engineer	AI 工程師	開發、部署機器學習模型並整合進正式產品
+engineering-api-platform-engineer	API 平台工程師	設計對外與合作夥伴 API：契約優先、版本管理、速率限制與開發者體驗
+engineering-ats-validator-architect	ATS 履歷系統架構師	設計與驗證求職追蹤系統（ATS）與履歷解析器
+engineering-autonomous-optimization-architect	自主最佳化架構師	持續影子測試 API 效能，同時嚴格控管成本與風險
+engineering-backend-architect	後端架構師	設計可擴展的後端系統、資料庫架構與 API
+engineering-china-network-engineer	中國網路工程師	處理華為、H3C、銳捷等中國主流企業網路設備的設定與維運
+engineering-cms-developer	CMS 開發者	開發 Drupal / WordPress 佈景、外掛與內容架構
+engineering-code-reviewer	程式碼審查員	審查程式碼的正確性、可維護性、安全性，給出具體可行的建議
+engineering-codebase-onboarding-engineer	程式碼導讀工程師	幫新工程師快速讀懂陌生的程式碼庫
+engineering-data-engineer	資料工程師	建置可靠的資料管線、湖倉架構與可擴展的資料平台
+engineering-data-visualization-engineer	資料視覺化工程師	依資料與問題挑選圖表，做出誠實、易讀的視覺化
+engineering-database-optimizer	資料庫最佳化專家	做資料表設計、查詢最佳化與索引策略，提升資料庫效能
+engineering-database-reliability-engineer	資料庫可靠性工程師	負責資料庫高可用、複寫、自動容錯、備份與還原
+engineering-desktop-app-engineer	桌面應用工程師	用 Electron / Tauri 開發安全的桌面應用，處理簽章與自動更新
+engineering-developer-tooling-engineer	開發者工具工程師	開發 CLI 工具與內部開發者平台
+engineering-devops-automator	DevOps 自動化工程師	做基礎設施自動化、CI/CD 管線與雲端維運
+engineering-drupal-performance	Drupal 效能工程師	最佳化 Drupal 網站的 Core Web Vitals 與快取效能
+engineering-drupal-shopping-cart	Drupal 電商工程師	用 Drupal Commerce 建置商品目錄、金流與購物車
+engineering-electrical-engineer	電機工程師	為電信機房、建築與基礎設施計算負載、電纜、電池與供電系統
+engineering-email-intelligence-engineer	郵件情報工程師	從原始 Email 往來中萃取結構化資料，供 AI 代理與自動化使用
+engineering-embedded-firmware-engineer	嵌入式韌體工程師	開發 ESP32、STM32 等裸機與 RTOS 韌體
+engineering-feishu-integration-developer	飛書整合開發者	開發飛書（Lark）機器人、小程式與開放平台整合
+engineering-filament-optimization-specialist	Filament 後台最佳化專家	重構並最佳化 Filament PHP 管理後台的易用性與效率
+engineering-finops-engineer	FinOps 雲端成本工程師	管理 AWS/GCP/Azure 成本：分攤標記、規格調整與承諾用量規劃
+engineering-frontend-developer	前端開發工程師	用 React/Vue/Angular 實作介面，負責前端效能與體驗
+engineering-gaussdb-expert	GaussDB 資料庫專家	負責華為 GaussDB 的架構設計、調校與維運
+engineering-git-workflow-master	Git 工作流程大師	規劃分支策略、提交規範與版本控制最佳實務
+engineering-i18n-engineer	國際化工程師	處理多語系、複數規則、RTL 版面與在地化格式
+engineering-identity-access-engineer	身分與存取工程師	實作 OAuth/OIDC、企業 SSO、SCIM 與 Passkey 登入
+engineering-incident-response-commander	事故應變指揮官	指揮正式環境事故處理、協調應變並主持事後檢討
+engineering-iot-fleet-engineer	物聯網裝置工程師	負責裝置佈建、MQTT 遙測管線與分批 OTA 更新
+engineering-it-service-manager	IT 服務經理	用 ITIL 4 建立服務目錄、事件與問題管理流程
+engineering-knowledge-graph-engineer	知識圖譜工程師	把資訊與能力結構化成實體與關係，建置知識圖譜
+engineering-llm-post-training-engineer	大模型後訓練工程師	負責 SFT、偏好最佳化、RLHF 與模型上線評估關卡
+engineering-minimal-change-engineer	最小改動工程師	只修被要求的部分，用最小的 diff 解決問題，拒絕範圍蔓延
+engineering-mobile-app-builder	行動 App 開發者	開發 iOS / Android 原生與跨平台 App
+engineering-mobile-release-engineer	行動 App 發佈工程師	處理 App 簽章、fastlane 流程與商店上架發佈
+engineering-multi-agent-systems-architect	多代理系統架構師	設計、協調與治理多個 AI 代理協作的管線
+engineering-network-engineer	網路工程師	設定 Cisco、Juniper、Palo Alto 的路由、交換與防火牆
+engineering-orgscript-engineer	OrgScript 工程師	設計 OrgScript 語法、AST 驗證與商業邏輯定義
+engineering-payments-billing-engineer	金流與計費工程師	串接 Stripe/Adyen 等金流、處理冪等付款、Webhook 與訂閱計費
+engineering-pdf-engine-architect	PDF 引擎架構師	打造穩定的 HTML 轉 PDF 文件產生系統
+engineering-platform-engineer	平台工程師	建置內部開發者平台、黃金路徑與自助式基礎設施
+engineering-privacy-engineer	隱私工程師	在程式中落實隱私：個資盤點分類、資料最小化與刪除流程
+engineering-prompt-engineer	提示詞工程師	撰寫、測試並系統化最佳化 LLM 提示詞
+engineering-rag-pipeline-engineer	RAG 管線工程師	負責切塊策略、檢索品質、混合搜尋、重排序與評估
+engineering-rapid-prototyper	快速原型開發者	快速做出概念驗證與 MVP
+engineering-realtime-collaboration-engineer	即時協作工程師	建置 WebSocket/SSE、線上狀態與 CRDT 協同編輯
+engineering-rust-refactoring-specialist	Rust 重構專家	對 Rust 專案做大規模安全重構、模組整理與去重
+engineering-search-relevance-engineer	搜尋相關性工程師	調校 Elasticsearch/OpenSearch 索引、分析器與排序
+engineering-section-508-specialist	無障礙（508 條款）專家	依美國聯邦 508 條款與 WCAG 實作與稽核無障礙
+engineering-senior-developer	資深開發者	精通 Laravel/Livewire、進階 CSS 與 Three.js 的高品質實作
+engineering-servicenow-developer-mentor	ServiceNow 開發導師	開發 ServiceNow 腳本並逐步帶你排除問題
+engineering-software-architect	軟體架構師	負責系統設計、領域驅動設計與技術決策
+engineering-solidity-smart-contract-engineer	Solidity 智慧合約工程師	開發 EVM 智慧合約，最佳化 Gas 與可升級架構
+engineering-sre	SRE 網站可靠性工程師	制定 SLO 與錯誤預算，負責可觀測性與降低重複性工作
+engineering-technical-writer	技術文件撰寫員	撰寫開發者文件、API 參考、README 與教學
+engineering-universal-document-compiler	通用文件編譯架構師	設計與資料格式無關的文件 AST 與自動版面推斷
+engineering-uswds-developer	USWDS 前端開發者	用美國政府網站設計系統開發無障礙前端
+engineering-video-streaming-engineer	影音串流工程師	負責 HLS/DASH 封裝、ffmpeg 轉碼與自適應串流
+engineering-voice-ai-integration-engineer	語音 AI 整合工程師	建置 Whisper 等語音轉文字管線
+engineering-webassembly-engineer	WebAssembly 工程師	把 Rust/C++/Go 編譯成 Wasm 並處理 JS 互通
+engineering-wechat-mini-program-developer	微信小程式開發者	開發微信小程式並串接微信 API 與支付
+engineering-wordpress-performance	WordPress 效能工程師	最佳化 WordPress 的 Core Web Vitals 與快取
+engineering-wordpress-shopping-cart	WordPress 電商工程師	用 WooCommerce 建置商品、金流與購物車
+finance-bookkeeper-controller	記帳與財務主管	負責日常帳務、對帳、月結與財務控管
+finance-financial-analyst	財務分析師	建立財務模型、預測與情境分析，支援決策
+finance-fpa-analyst	財務規劃分析師（FP&A）	負責預算編列、差異分析與財務規劃
+finance-investment-researcher	投資研究員	做市場研究、盡職調查、投資組合分析與資產估值
+finance-tax-strategist	稅務策略師	規劃節稅、跨境稅務合規與移轉訂價
+blender-addon-engineer	Blender 外掛工程師	開發 Blender Python 外掛、資產檢查與匯出自動化
+economy-designer	遊戲經濟設計師	設計虛擬貨幣、產出與消耗、變現與通膨控制
+game-audio-engineer	遊戲音效工程師	整合 FMOD/Wwise，設計動態配樂與空間音效
+game-designer	遊戲設計師	撰寫企劃書、設計系統與玩法機制、平衡數值
+godot-gameplay-scripter	Godot 玩法腳本工程師	用 GDScript / C# 撰寫 Godot 遊戲邏輯
+godot-multiplayer-engineer	Godot 多人連線工程師	實作 Godot 4 多人連線、場景同步與 RPC
+godot-shader-developer	Godot 著色器開發者	製作 Godot 4 著色器與視覺特效
+level-designer	關卡設計師	設計關卡動線、節奏、遭遇戰與環境敘事
+narrative-designer	敘事設計師	設計劇情系統、分支對話與世界觀
+roblox-avatar-creator	Roblox 虛擬形象創作者	製作 Roblox UGC 服飾配件與虛擬形象
+roblox-experience-designer	Roblox 體驗設計師	設計 Roblox 遊戲的留存循環、進度系統與變現
+roblox-systems-scripter	Roblox 系統腳本工程師	用 Luau 撰寫 Roblox 伺服器與客戶端系統
+technical-artist	技術美術	串接美術與引擎：著色器、特效、LOD 與效能預算
+unity-architect	Unity 架構師	用 ScriptableObject 等設計模組化、低耦合的 Unity 架構
+unity-editor-tool-developer	Unity 編輯器工具開發者	開發 Unity 編輯器擴充與資產自動化工具
+unity-multiplayer-engineer	Unity 多人連線工程師	用 Netcode 與 Unity Gaming Services 實作連線遊戲
+unity-shader-graph-artist	Unity Shader Graph 美術	用 Shader Graph / HLSL 製作材質與視覺特效
+unreal-multiplayer-architect	Unreal 多人連線架構師	設計 Unreal 的 Actor 複寫與伺服器權威架構
+unreal-systems-engineer	Unreal 系統工程師	負責 C++/Blueprint 架構、Nanite、Lumen 與效能
+unreal-technical-artist	Unreal 技術美術	用材質編輯器、Niagara 與程序化生成製作視覺內容
+unreal-world-builder	Unreal 世界建構師	用 World Partition、地形與植被打造開放世界場景
+gis-3d-scene-developer	3D 場景開發者	在網頁上建置 3D 場景、地形模型與點雲視覺化
+gis-analyst	GIS 分析師	製作地圖、管理圖層、執行空間查詢與維護圖資
+gis-bim-specialist	BIM/GIS 整合專家	整合建築資訊模型（BIM）與地理資訊系統（GIS）
+gis-cartography-designer	地圖設計師	設計美觀易讀的地圖：配色、字體與標註
+gis-drone-reality-mapping	無人機實景建模專家	把空拍影像處理成正射影像、數值地形與實景模型
+gis-geoai-ml-engineer	GeoAI 機器學習工程師	建立地物萃取、物件偵測與影像分割模型
+gis-geoprocessing-specialist	地理處理自動化專家	用 ArcPy 與 Python 工具箱自動化空間作業流程
+gis-qa-engineer	GIS 品質保證工程師	檢查圖資拓撲、詮釋資料與座標系統的正確性
+gis-solution-engineer	GIS 解決方案工程師	把 GIS 策略做成可用的展示與原型
+gis-spatial-data-engineer	空間資料工程師	把雜亂的地理資料轉成乾淨、標準化的正式資料
+gis-spatial-data-scientist	空間資料科學家	做空間統計、空間計量與分群分析
+gis-technical-consultant	GIS 技術顧問	把業務問題轉成地理空間解決方案與技術藍圖
+gis-web-gis-developer	Web GIS 開發者	用 MapLibre、ArcGIS JS、Leaflet 開發互動地圖應用
+healthcare-clinical-evidence-agent	臨床證據顧問	為 AI 代理建立臨床證據標準與可信度框架
+healthcare-innovation-strategist	醫療創新策略師	幫醫療新創把臨床與財務複雜度說成投資人聽得懂的故事
+healthcare-sovereign-health-systems-agent	國家醫療體系顧問	協助與政府醫療政策、公共衛生體系的合作對接
+marketing-aeo-foundations	AEO 基礎架構師	建置 llms.txt、AI 友善 robots.txt 等 AI 搜尋最佳化基礎
+marketing-agentic-search-optimizer	代理式搜尋最佳化師	檢查 AI 代理能否在你的網站上順利完成任務
+marketing-ai-citation-strategist	AI 引用策略師	稽核品牌在 ChatGPT、Claude 等 AI 回答中的能見度
+marketing-app-store-optimizer	App 商店最佳化師	做 ASO、提升商店頁轉換率與下載量
+marketing-baidu-seo-specialist	百度 SEO 專家	最佳化百度排名與百度生態佈局
+marketing-bilibili-content-strategist	B 站內容策略師	經營 B 站 UP 主成長、彈幕文化與演算法
+marketing-book-co-author	書籍共同作者	把創辦人與專家的語音筆記、零碎想法寫成一本書
+marketing-carousel-growth-engine	輪播貼文成長引擎	自動分析網站並產出 TikTok / IG 輪播貼文
+marketing-china-ecommerce-operator	中國電商營運	經營淘寶、天貓、拼多多、京東店鋪
+marketing-china-market-localization-strategist	中國市場在地化策略師	把趨勢訊號轉成可執行的中國市場進入策略
+marketing-content-creator	內容創作者	規劃多平台內容行事曆並產出內容
+marketing-cross-border-ecommerce	跨境電商專家	經營 Amazon、Shopee、Lazada、Temu、TikTok Shop 等跨境平台
+marketing-developer-community-builder	開發者社群經營者	經營 Discord、GitHub 討論區與貢獻者計畫
+marketing-douyin-strategist	抖音策略師	掌握抖音推薦演算法，規劃短影音行銷
+marketing-email-strategist	Email 行銷策略師	規劃 CRM 名單分眾、生命週期自動化與 Email 活動
+marketing-global-podcast-strategist	國際 Podcast 策略師	負責節目定位、聽眾成長、內容策略與變現
+marketing-growth-hacker	成長駭客	用數據實驗快速獲取使用者、設計成長循環
+marketing-instagram-curator	Instagram 經營者	用視覺說故事、經營 IG 社群與多種內容格式
+marketing-kuaishou-strategist	快手策略師	針對下沉市場經營快手短影音與直播
+marketing-linkedin-content-creator	LinkedIn 內容創作者	經營思想領導與個人品牌的 LinkedIn 內容
+marketing-livestream-commerce-coach	直播帶貨教練	訓練主播、經營抖音快手等直播間
+marketing-multi-platform-publisher	多平台發文專員	一鍵把文章發佈到知乎、小紅書、CSDN、B 站、公眾號等
+marketing-podcast-strategist	中文 Podcast 策略師	經營小宇宙、喜馬拉雅等中文 Podcast 平台
+marketing-pr-communications-manager	公關傳播經理	負責媒體關係、新聞稿與危機溝通
+marketing-private-domain-operator	私域流量營運	經營企業微信私域、SCRM 與社群轉換
+marketing-reddit-community-builder	Reddit 社群經營者	在 Reddit 以真誠、有價值的方式經營社群
+marketing-seo-specialist	SEO 專家	負責技術 SEO、內容最佳化與外部連結
+marketing-short-video-editing-coach	短影音剪輯教練	教你用剪映、Premiere 等完成短影音後製
+marketing-social-media-strategist	社群媒體策略師	規劃 LinkedIn、Twitter 等專業平台的跨平台活動
+marketing-tiktok-strategist	TikTok 策略師	製作爆紅內容、掌握 TikTok 演算法與社群
+marketing-twitter-engager	Twitter 互動經營者	在 Twitter 即時互動、建立思想領導
+marketing-video-optimization-specialist	影片最佳化專家	最佳化 YouTube 演算法表現、觀看留存與縮圖
+marketing-wechat-official-account	微信公眾號經理	經營公眾號內容、訂閱者互動與轉換
+marketing-weibo-strategist	微博策略師	經營微博熱搜、超話與品牌聲量
+marketing-x-twitter-intelligence-analyst	X/Twitter 情報分析師	在 X 上做趨勢偵測、帳號監控與有證據的分析
+marketing-xiaohongshu-specialist	小紅書專家	經營小紅書生活風格內容與種草行銷
+marketing-zhihu-strategist	知乎策略師	在知乎建立專業形象與知識型行銷
+paid-media-auditor	付費廣告稽核師	全面稽核 Google、Microsoft、Meta 廣告帳戶
+paid-media-creative-strategist	廣告素材策略師	撰寫廣告文案、最佳化 RSA 與素材測試
+paid-media-paid-social-strategist	付費社群廣告策略師	投放 Meta、LinkedIn、TikTok、Pinterest 等社群廣告
+paid-media-ppc-strategist	關鍵字廣告策略師	規劃大型搜尋、購物與 PMax 廣告架構
+paid-media-programmatic-buyer	程式化與多媒體廣告採購	採購 GDN、程式化與多媒體廣告版位
+paid-media-search-query-analyst	搜尋字詞分析師	分析搜尋字詞、建立否定關鍵字與意圖對應
+paid-media-tracking-specialist	追蹤與成效衡量專家	建置轉換追蹤、GTM 代碼管理與歸因模型
+product-behavioral-nudge-engine	行為推力設計師	用行為心理學調整產品互動節奏，提升使用者動機
+product-dx-engineer	開發者體驗工程師	縮短開發者從接觸到成功的路徑：SDK 範例、引導與錯誤訊息
+product-feedback-synthesizer	使用者回饋整合師	蒐集分析多管道回饋，萃取可執行的產品洞察
+product-manager	產品經理	負責產品全生命週期：探索、策略、路線圖與上市
+product-sprint-prioritizer	衝刺優先排序師	規劃敏捷衝刺、排定功能優先順序與資源分配
+product-trend-researcher	趨勢研究員	研究新興趨勢、競品分析與市場機會
+project-management-experiment-tracker	實驗追蹤專員	設計實驗、追蹤執行並用數據做決策
+project-management-jira-workflow-steward	Jira 流程管理員	落實 Jira 與 Git 綁定的流程、可追溯提交與 PR 規範
+project-management-meeting-notes-specialist	會議紀錄專員	從逐字稿或筆記整理出決議、待辦事項與未決問題
+project-management-project-shepherd	專案統籌	協調跨部門專案、管理時程與利害關係人
+project-management-studio-operations	工作室營運	提升日常營運效率、改善流程與協調資源
+project-management-studio-producer	工作室製作人	統籌高層級的創意與技術專案、資源配置
+project-manager-senior	資深專案經理	把規格拆成任務、控制範圍，記住過往專案經驗
+research-synthesist	研究彙整師	做文獻回顧、來源評估，把零散資料整合成有證據的結論
+sales-account-strategist	客戶經營策略師	負責售後擴展、利害關係人地圖與季度業務檢討（QBR）
+sales-coach	業務教練	培養業務、主持業績管道檢討、陪練通話與案件
+sales-deal-strategist	成交策略師	用 MEDDPICC 評估商機、制定競爭定位與贏單計畫
+sales-discovery-coach	需求探詢教練	教業務團隊設計提問、盤點現況、量化落差
+sales-engineer	售前工程師	負責技術需求訪談、Demo、POC 範圍與競品應對
+sales-offer-lead-gen-strategist	優惠方案與名單開發策略師	設計吸引潛在客戶的方案與名單磁鐵
+sales-outbound-strategist	主動開發策略師	定義理想客戶、設計多管道主動開發序列
+sales-pipeline-analyst	業績管道分析師	診斷管道健康度、成交速度與預測準確度
+sales-proposal-strategist	提案策略師	把 RFP 與商機轉成有說服力的得標提案
+security-ai-generated-code-auditor	AI 生成程式碼資安稽核師	找出 AI 寫出來的程式中寫死的金鑰、權限漏洞等問題
+security-appsec-engineer	應用程式資安工程師	做威脅建模、安全程式碼審查，保護開發流程
+security-architect	資安架構師	設計安全架構、威脅建模與信任邊界分析
+security-blockchain-security-auditor	區塊鏈資安稽核師	稽核智慧合約漏洞、形式驗證與攻擊分析
+security-cloud-security-architect	雲端資安架構師	在 AWS/Azure/GCP 設計零信任與縱深防禦
+security-compliance-auditor	合規稽核師	協助 SOC 2、ISO 27001、HIPAA、PCI-DSS 稽核
+security-incident-responder	資安事件應變專家	主導入侵調查、圍堵威脅與數位鑑識
+security-penetration-tester	滲透測試員	執行授權滲透測試、紅隊演練與弱點評估
+security-secrets-credential-engineer	金鑰與憑證管理工程師	負責密鑰偵測、防外洩、保管、輪替與外洩應變
+security-senior-secops	資深資安維運工程師	掃描每次提交的機敏資料外洩風險並防守應用
+security-threat-detection-engineer	威脅偵測工程師	撰寫 SIEM 偵測規則、對應 MITRE ATT&CK 與威脅獵捕
+security-threat-intelligence-analyst	威脅情資分析師	追蹤駭客組織與攻擊活動，產出情資報告
+macos-spatial-metal-engineer	macOS 空間運算/Metal 工程師	用 Swift 與 Metal 開發高效能 3D 繪圖
+terminal-integration-specialist	終端機整合專家	負責終端機模擬、文字繪製最佳化與 SwiftTerm 整合
+visionos-spatial-engineer	visionOS 空間運算工程師	開發 visionOS 原生空間應用與立體介面
+xr-cockpit-interaction-specialist	XR 座艙互動專家	設計 XR 環境中的沉浸式座艙控制系統
+xr-immersive-developer	XR 沉浸式開發者	用 WebXR 開發瀏覽器上的 AR/VR 應用
+xr-interface-architect	XR 介面架構師	設計 AR/VR/XR 的空間互動與介面策略
+accounts-payable-agent	應付帳款專員	處理供應商付款、承包商發票與定期帳單
+agentic-identity-trust	AI 代理身分與信任架構師	設計自主 AI 代理的身分、驗證與信任機制
+agents-orchestrator	代理協調總管	統籌整個開發流程，指揮多個代理分工合作
+automation-governance-architect	自動化治理架構師	在導入 n8n 等自動化前評估價值、風險與可維護性
+business-strategist	商業策略顧問	做競爭分析、市場進入策略與商業模式設計
+change-management-consultant	變革管理顧問	用 ADKAR、Kotter 等框架帶組織走過變革
+chief-financial-officer	財務長（CFO）	負責資本配置、資金調度、財務規劃與併購財務
+corporate-training-designer	企業培訓設計師	做培訓需求分析、課程與企業學習體系設計
+customer-service	客服專員	處理各行業的客戶詢問、客訴與帳戶問題
+customer-success-manager	客戶成功經理	負責導入、健康度評分、季度檢討、防流失與擴充
+data-consolidation-agent	資料彙整專員	把銷售資料彙整成即時報表（區域、業務、管道）
+data-privacy-officer	資料保護長（DPO）	建立 GDPR、CCPA 等全球隱私合規計畫
+esg-sustainability-officer	ESG 永續長	規劃永續策略與 ESG 揭露報告
+government-digital-presales-consultant	政府數位轉型售前顧問	解讀政策並為政府數位化專案做售前方案
+grant-writer	補助申請撰寫師	為非營利、研究機構撰寫補助與計畫申請書
+healthcare-aging-parent-care-companion	長輩照護陪伴顧問	協助家屬協調照護長輩的醫療與日常決策
+healthcare-customer-service	醫療客服專員	處理病患支援、帳單疑問與預約管理
+healthcare-marketing-compliance	醫療行銷合規專家	依中國廣告法與醫療廣告規範審查行銷內容
+hospitality-guest-services	飯店餐旅賓客服務	處理飯店、度假村、餐廳與活動場地的賓客服務
+hr-onboarding	人資新人報到專員	負責新人報到、文件管理與合規追蹤
+identity-graph-operator	身分圖譜營運員	維護多個 AI 代理共用的身分圖譜，確保身分一致
+language-translator	翻譯員	西班牙文與英文即時翻譯，兼顧文化脈絡
+legal-billing-time-tracking	法律工時計費專員	記錄律師工時、開立帳單與計費管理
+legal-client-intake	法律客戶接案專員	篩選潛在客戶、蒐集案件資料、安排諮詢
+legal-document-review	法律文件審閱專員	審閱合約、訴訟文件與不動產協議
+loan-officer-assistant	貸款專員助理	協助房貸與放款：借款人受理、預審與文件
+lsp-index-engineer	LSP/程式索引工程師	用 Language Server Protocol 打造統一的程式碼智慧系統
+ma-integration-manager	併購整合經理	規劃並執行併購後的整合計畫
+medical-billing-coding-specialist	醫療申報編碼專員	處理 ICD-10、CPT 編碼、理賠申報與核退
+operations-manager	營運經理	用精實、六標準差做流程分析與產能規劃
+organizational-psychologist	組織心理學家	診斷團隊動態、心理安全感、倦怠風險與文化
+personal-growth-mentor	個人成長導師	陪你釐清目標、設計習慣、做重大決策並持續追蹤
+real-estate-buyer-seller	房地產買賣顧問	協助買方與賣方代理、物件刊登與成交
+recruitment-specialist	招募專員	經營招聘平台、人才搜尋與招募流程
+report-distribution-agent	報表派送專員	依區域自動把彙整好的銷售報表發給業務
+resume-tailor	履歷客製顧問	分析職缺並依你的真實經歷改寫履歷
+retail-customer-returns	零售退換貨專員	處理門市與線上的退貨、換貨與退款
+sales-data-extraction-agent	銷售資料擷取專員	監控 Excel 檔並擷取 MTD、YTD 等銷售指標
+sales-outreach	B2B 業務開發專員	陌生開發、追蹤名單、處理異議與提案
+specialized-chief-of-staff	幕僚長	幫創辦人與主管過濾雜訊、管流程、分派決策
+specialized-civil-engineer	土木結構工程師	依 Eurocode、ACI、AISC 等各國規範做結構設計
+specialized-codebase-archaeologist	程式碼考古學家	稽核被多個 AI 工具改過的程式碼，找出偏移與不一致
+specialized-cultural-intelligence-strategist	文化智商策略師	找出隱性排斥，讓軟體在不同文化中都得體
+specialized-developer-advocate	開發者布道師	經營開發者社群、產出技術內容
+specialized-document-generator	文件產生專家	用程式產生 PDF、PPTX、DOCX、XLSX 專業文件
+specialized-fedramp-rmf-compliance	FedRAMP 與 RMF 合規工程師	處理美國聯邦 FedRAMP 授權與 NIST RMF 合規
+specialized-focus-music-architect	專注音樂設計師	設計專注用的器樂與音景生成提示詞
+specialized-french-consulting-market	法國顧問市場嚮導	協助在法國 ESN/SI 自由接案市場的定價與平台經營
+specialized-korean-business-navigator	韓國商務嚮導	教外籍人士理解韓國商業文化、決策流程與職場禮儀
+specialized-master-plan-architect	總體計畫架構師	深入審查架構計畫，嚴格挑出計畫漏洞
+specialized-mcp-builder	MCP 建置專家	設計、開發與測試 MCP 伺服器，擴充 AI 代理能力
+specialized-model-qa	模型品質稽核專家	獨立稽核機器學習與統計模型
+specialized-pricing-analyst	定價分析師	用市場與競品研究建立最佳定價模型
+specialized-salesforce-architect	Salesforce 架構師	設計 Salesforce 多雲架構、整合與部署
+specialized-strategy-duel-agent	策略對弈顧問	用賽局理論與三十六計進行策略推演
+specialized-workflow-architect	工作流程架構師	為系統、使用者旅程與代理互動畫出完整流程樹
+study-abroad-advisor	留學顧問	規劃美、英、加、澳、歐、港、新等地留學申請
+supply-chain-strategist	供應鏈策略師	負責供應商開發、策略採購與供應鏈管理
+zk-steward	卡片盒知識管理員	用 Zettelkasten 卡片盒方法經營你的知識庫
+support-analytics-reporter	數據分析報告員	把原始資料轉成儀表板與可行動的商業洞察
+support-executive-summary-generator	主管摘要撰寫員	像資深策略顧問一樣把複雜資訊濃縮成主管摘要
+support-finance-tracker	財務追蹤專員	負責財務規劃、預算管理與營運績效追蹤
+support-infrastructure-maintainer	基礎設施維護員	確保系統可靠、效能與技術維運
+support-legal-compliance-checker	法遵檢查員	檢查營運、資料處理與內容是否合規
+support-support-responder	客服回覆專員	處理客戶支援、解決問題並提升服務體驗
+testing-accessibility-auditor	無障礙稽核員	依 WCAG 稽核介面並用輔助科技測試
+testing-api-tester	API 測試員	做 API 功能、效能與品質驗證
+testing-evidence-collector	證據蒐集測試員	用截圖等證據回報可重現的問題，不做無根據的通過
+testing-performance-benchmarker	效能基準測試員	量測、分析並改善系統效能
+testing-reality-checker	現實檢查員	預設判「需要改進」，要有充分證據才核准上線
+testing-test-automation-engineer	測試自動化工程師	用 Playwright / Cypress 寫穩定的端對端測試
+testing-test-results-analyzer	測試結果分析師	評估測試結果與品質指標
+testing-tool-evaluator	工具評估師	評估、測試並推薦工具與軟體
+testing-workflow-optimizer	流程最佳化師	分析、最佳化並自動化各部門的工作流程
