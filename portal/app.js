@@ -1,6 +1,8 @@
 /* 數位員工介接平台 — static app, no build step.
  * Data: data/catalog.json (list) + data/prompts/<group>.json (system prompts, loaded on demand).
- * Chat: browser calls the Anthropic Messages API directly with the user's own key.
+ * Chat: browser calls the Anthropic Messages API directly with the user's own key,
+ * or a self-hosted OpenAI-compatible server (Ollama, LM Studio, vLLM, llama.cpp...).
+ * scripts/serve_local.py serves this page and forwards /llm/ to that server.
  */
 (() => {
   "use strict";
@@ -25,6 +27,7 @@
     busy: false,
     abort: null,
     sample: null,   // claude.ai artifact runtime: answers on the viewer's own Claude account
+    proxy: null,    // set when served by scripts/serve_local.py: { proxy: true, model }
   };
 
   // ---------- catalog ----------
@@ -226,6 +229,7 @@
       p.className = "hint";
       p.textContent = canChat()
         ? `直接問「${e.title}」問題吧。它會用自己的角色設定回答你。`
+          + (isLocal() ? `（目前由自架模型 ${localModel() || "（自動選擇）"} 回答）` : "")
         : "還沒設定 API Key：請按右上角「⚙️ 設定」貼上 Anthropic API Key。也可以先按「複製角色設定」，貼到 claude.ai 的對話裡使用。";
       box.append(p);
     }
@@ -283,13 +287,19 @@
       if (state.current !== e) return;
       const hist = history_(e.id).reduce((n, m) => n + estTokens(m.content), 0);
       const n = estTokens(sys) + hist;
-      el.textContent = `下一題約送出 ${fmtTok(n)} tokens（角色設定 ${fmtTok(estTokens(sys))} ＋ 對話紀錄 ${fmtTok(hist)}）`;
+      el.textContent = `下一題約送出 ${fmtTok(n)} tokens（角色設定 ${fmtTok(estTokens(sys))} ＋ 對話紀錄 ${fmtTok(hist)}）`
+        + (isLocal() && n > 3500 ? `。自架模型的上下文長度要大於這個數字，否則角色設定會被截掉（見 README）` : "");
     } catch { el.textContent = ""; }
   }
 
   // ---------- chat ----------
   const hasKey = () => !!LS.get("anthropic_api_key");
-  const canChat = () => !!state.sample || hasKey();
+  const provider = () => LS.get("provider") || (state.proxy ? "local" : "anthropic");
+  const isLocal = () => !state.sample && provider() === "local";
+  const proxyBase = () => new URL("llm", location.href).href;
+  const localBase = () => (LS.get("local_base_url") || (state.proxy ? proxyBase() : "http://localhost:11434/v1")).replace(/\/+$/, "");
+  const localModel = () => LS.get("local_model") || state.proxy?.model || "";
+  const canChat = () => !!state.sample || isLocal() || hasKey();
 
   async function send(question) {
     const e = state.current;
@@ -313,6 +323,14 @@
       if (state.sample) {
         const sent = estTokens(system) + h.reduce((n, m) => n + estTokens(m.content), 0);
         text = await askViaClaudeAi(system, h, out, box);
+        h.push({ role: "assistant", content: text });
+        saveHistory(e.id);
+        recordUsage(sent, estTokens(text));
+        return;
+      }
+      if (isLocal()) {
+        const sent = estTokens(system) + h.reduce((n, m) => n + estTokens(m.content), 0);
+        text = await askLocal(system, h, out, box);
         h.push({ role: "assistant", content: text });
         saveHistory(e.id);
         recordUsage(sent, estTokens(text));
@@ -426,6 +444,105 @@
     }
   }
 
+  // ---------- self-hosted model (OpenAI-compatible /chat/completions) ----------
+  function localHeaders() {
+    const h = { "content-type": "application/json" };
+    const key = LS.get("local_api_key");
+    if (key) h.authorization = "Bearer " + key;
+    return h;
+  }
+
+  function unreachable(base) {
+    const viaProxy = state.proxy && base === proxyBase().replace(/\/+$/, "");
+    return new Error(viaProxy
+      ? "連不到 serve_local.py，請確認它還在執行。"
+      : `連不到 ${base}。請確認模型服務已啟動、網址正確；如果是從 GitHub Pages 或其他網址開啟這個頁面，`
+        + "模型服務要允許跨網域（CORS），或改用 serve_local.py 開啟（見 README「使用自架模型」）。");
+  }
+
+  async function listModels() {
+    const base = localBase();
+    let res;
+    try { res = await fetch(base + "/models", { headers: localHeaders() }); } catch { throw unreachable(base); }
+    if (!res.ok) throw new Error(`讀取模型清單失敗（HTTP ${res.status}）`);
+    const j = await res.json();
+    return (j.data || j.models || []).map((m) => m.id || m.name).filter(Boolean);
+  }
+
+  // Reasoning models (Qwen3, DeepSeek-R1...) may put their thinking in <think> tags.
+  function stripThink(t) {
+    t = t.replace(/<think>[\s\S]*?<\/think>\s*/g, "");
+    const open = t.indexOf("<think>");
+    return open === -1 ? t : t.slice(0, open);
+  }
+
+  async function askLocal(system, h, out, box) {
+    const base = localBase();
+    let model = localModel();
+    if (!model) {
+      const models = await listModels();
+      if (!models.length) throw new Error("模型服務上沒有任何模型，請先下載一個（例如 ollama pull qwen3:8b）。");
+      model = models[0];
+      LS.set("local_model", model);
+      renderMode();
+    }
+    const turns = h.slice(-20).map((m) => ({ role: m.role, content: m.content }));
+    while (turns.length && turns[0].role !== "user") turns.shift();
+    let res;
+    try {
+      res = await fetch(base + "/chat/completions", {
+        method: "POST",
+        signal: state.abort.signal,
+        headers: localHeaders(),
+        body: JSON.stringify({ model, stream: true, messages: [{ role: "system", content: system }, ...turns] }),
+      });
+    } catch (err) {
+      if (err.name === "AbortError") throw err;
+      throw unreachable(base);
+    }
+    if (!res.ok) {
+      let detail = "";
+      try { const j = await res.json(); detail = j.error?.message || (typeof j.error === "string" ? j.error : "") || j.detail || ""; } catch { /* not json */ }
+      const map = { 401: "API Key 不正確", 404: `找不到模型「${model}」或網址不對，請到「⚙️ 設定」確認`, 502: "模型服務沒有回應" };
+      throw new Error(`${map[res.status] || "自架模型回傳錯誤"}（HTTP ${res.status}）${detail ? "：" + detail : ""}`);
+    }
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = "", raw = "", thinking = false, finish = null;
+    const show = () => {
+      const t = stripThink(raw);
+      out.innerHTML = mdToHtml(t || (thinking || raw ? "_（思考中…）_" : "…"));
+      box.scrollTop = box.scrollHeight;
+    };
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let idx;
+      while ((idx = buf.indexOf("\n")) !== -1) {
+        const line = buf.slice(0, idx).trim();
+        buf = buf.slice(idx + 1);
+        if (!line.startsWith("data:")) continue;
+        const data = line.slice(5).trim();
+        if (data === "[DONE]") continue;
+        let ev;
+        try { ev = JSON.parse(data); } catch { continue; }
+        if (ev.error) throw new Error(ev.error.message || String(ev.error));
+        const c = ev.choices?.[0];
+        if (!c) continue;
+        if (c.delta?.content) raw += c.delta.content;
+        if (c.delta?.reasoning_content || c.delta?.reasoning) thinking = true;
+        if (c.finish_reason) finish = c.finish_reason;
+        show();
+      }
+    }
+    let text = stripThink(raw).trim();
+    if (finish === "length") text += "\n\n_（回答太長被截斷，可以請它「繼續」）_";
+    if (!text) text = "_（沒有收到回覆內容）_";
+    out.innerHTML = mdToHtml(text);
+    return text;
+  }
+
   function apiErrorText(status, detail) {
     const map = {
       400: "請求格式有誤",
@@ -445,10 +562,37 @@
   }
 
   // ---------- settings ----------
+  function showProviderFields() {
+    const local = $("provider").value === "local";
+    $("anthropicFields").hidden = local;
+    $("localFields").hidden = !local;
+    $("clearKey").hidden = local;
+  }
+
+  function renderMode() {
+    const local = isLocal();
+    $("modeBadge").hidden = !local;
+    $("modeBadge").textContent = local ? (localModel() ? "自架 " + localModel() : "自架模型") : "";
+    $("usageLink").hidden = local;
+  }
+
   function openSettings() {
+    $("provider").value = provider();
     $("apiKey").value = LS.get("anthropic_api_key", "");
     $("model").value = LS.get("anthropic_model", "claude-sonnet-5-5");
+    $("localBase").value = LS.get("local_base_url", "");
+    $("localBase").placeholder = state.proxy ? proxyBase() + "（serve_local.py）" : "http://localhost:11434/v1";
+    $("proxyNote").hidden = !state.proxy;
+    $("localModel").value = LS.get("local_model", "");
+    $("localModel").placeholder = state.proxy?.model || "例如 qwen3:8b";
+    $("localKey").value = LS.get("local_api_key", "");
+    $("modelsNote").textContent = "留空時會自動用服務上的第一個模型。";
+    showProviderFields();
     $("settings").showModal();
+  }
+
+  function saveLocalSetting(key, value) {
+    if (value) LS.set(key, value); else LS.del(key);
   }
 
   // ---------- wiring ----------
@@ -501,11 +645,39 @@
     $("settingsBtn").onclick = openSettings;
     $("settings").addEventListener("close", () => {
       if ($("settings").returnValue !== "ok") return;
+      LS.set("provider", $("provider").value);
       const key = $("apiKey").value.trim();
       if (key) LS.set("anthropic_api_key", key);
       LS.set("anthropic_model", $("model").value);
+      saveLocalSetting("local_base_url", $("localBase").value.trim());
+      saveLocalSetting("local_model", $("localModel").value.trim());
+      saveLocalSetting("local_api_key", $("localKey").value.trim());
+      renderMode();
       if (state.current) renderMessages();
     });
+    $("provider").addEventListener("change", showProviderFields);
+    $("fetchModels").onclick = async () => {
+      const note = $("modelsNote");
+      // Try the URL typed in the dialog before it is saved.
+      const typed = $("localBase").value.trim(), keyTyped = $("localKey").value.trim();
+      const prev = [LS.get("local_base_url"), LS.get("local_api_key")];
+      saveLocalSetting("local_base_url", typed);
+      saveLocalSetting("local_api_key", keyTyped);
+      note.textContent = "讀取中…";
+      try {
+        const models = await listModels();
+        const dl = $("localModels");
+        dl.textContent = "";
+        for (const m of models) { const o = document.createElement("option"); o.value = m; dl.append(o); }
+        if (!$("localModel").value && models.length) $("localModel").value = models[0];
+        note.textContent = models.length ? `找到 ${models.length} 個模型：${models.join("、")}` : "服務上沒有任何模型。";
+      } catch (err) {
+        note.textContent = err.message;
+      } finally {
+        saveLocalSetting("local_base_url", prev[0]);
+        saveLocalSetting("local_api_key", prev[1]);
+      }
+    };
     $("clearKey").onclick = () => {
       LS.del("anthropic_api_key");
       $("apiKey").value = "";
@@ -516,11 +688,20 @@
 
   wire();
   renderUsage();
+  renderMode();
+  // Served by scripts/serve_local.py? Then default to the self-hosted model through its /llm/ proxy.
+  fetch("llm/__portal").then((r) => (r.ok ? r.json() : null)).then((cfg) => {
+    if (!cfg || !cfg.proxy) return;
+    state.proxy = cfg;
+    renderMode();
+    if (state.current) renderMessages();
+  }).catch(() => {});
   if (window.claude && typeof window.claude.use === "function") {
     window.claude.use("sample").then((fn) => {
       if (!fn) return;
       state.sample = fn;
       $("settingsBtn").hidden = true;
+      renderMode();
       if (state.current) renderMessages();
     }).catch(() => {});
   }
