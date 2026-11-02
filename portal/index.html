@@ -18,9 +18,9 @@
     <span class="usage-label">用量估計</span>
     <span id="usageToday">今天 0 題</span>
     <span id="usageMonth">本月 0 題</span>
-    <a href="https://claude.ai/settings/usage" target="_blank" rel="noopener">查看實際剩餘額度 ↗</a>
+    <a id="usageLink" href="https://claude.ai/settings/usage" target="_blank" rel="noopener">查看實際剩餘額度 ↗</a>
   </div>
-  <button id="settingsBtn" class="ghost" type="button" title="設定 API Key 與模型">⚙️ 設定</button>
+  <button id="settingsBtn" class="ghost" type="button" title="設定回答的模型">⚙️ 設定<span id="modeBadge" class="mode-badge" hidden></span></button>
 </header>
 
 <section class="controls">
@@ -73,17 +73,43 @@
 <dialog id="settings">
   <form method="dialog" class="settings">
     <h2>設定</h2>
-    <label>Anthropic API Key
-      <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off">
-    </label>
-    <p class="muted small">Key 只會存在這台電腦的瀏覽器（localStorage），由瀏覽器直接呼叫 Anthropic API，不會經過其他伺服器。到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a> 申請。</p>
-    <label>模型
-      <select id="model">
-        <option value="claude-sonnet-5-5">Claude Sonnet 5.5（建議）</option>
-        <option value="claude-opus-5-5">Claude Opus 5.5（最強）</option>
-        <option value="claude-haiku-5-5">Claude Haiku 5.5（最快最省）</option>
+    <label>回答的模型來源
+      <select id="provider">
+        <option value="anthropic">Claude（Anthropic 雲端，需要 API Key）</option>
+        <option value="local">自架模型（Ollama、LM Studio、vLLM 等 OpenAI 相容服務）</option>
       </select>
     </label>
+    <div id="anthropicFields" class="settings-group">
+      <label>Anthropic API Key
+        <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off">
+      </label>
+      <p class="muted small">Key 只會存在這台電腦的瀏覽器（localStorage），由瀏覽器直接呼叫 Anthropic API，不會經過其他伺服器。到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a> 申請。</p>
+      <label>模型
+        <select id="model">
+          <option value="claude-sonnet-5-5">Claude Sonnet 5.5（建議）</option>
+          <option value="claude-opus-5-5">Claude Opus 5.5（最強）</option>
+          <option value="claude-haiku-5-5">Claude Haiku 5.5（最快最省）</option>
+        </select>
+      </label>
+    </div>
+    <div id="localFields" class="settings-group" hidden>
+      <label>服務網址（OpenAI 相容，結尾通常是 /v1）
+        <input id="localBase" type="text" placeholder="http://localhost:11434/v1" autocomplete="off" spellcheck="false">
+      </label>
+      <p id="proxyNote" class="muted small" hidden>已偵測到 serve_local.py，預設會透過它轉送，不需要設定 CORS。</p>
+      <label>模型名稱
+        <span class="inline">
+          <input id="localModel" type="text" list="localModels" placeholder="例如 qwen3:8b" autocomplete="off" spellcheck="false">
+          <button id="fetchModels" class="ghost" type="button">讀取清單</button>
+        </span>
+      </label>
+      <datalist id="localModels"></datalist>
+      <p id="modelsNote" class="muted small">留空時會自動用服務上的第一個模型。</p>
+      <label>API Key（選填，多數自架服務不需要）
+        <input id="localKey" type="password" autocomplete="off">
+      </label>
+      <p class="muted small">問題只會送到你填的網址，不會經過其他伺服器。設定方式見 portal/README.md 的「使用自架模型」。</p>
+    </div>
     <div class="settings-actions">
       <button id="clearKey" class="ghost" type="button">刪除 Key</button>
       <button value="ok" class="primary">儲存</button>

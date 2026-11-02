@@ -165,3 +165,10 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
   .top, .controls, .grid { padding-left: 16px; padding-right: 16px; }
   .grid { grid-template-columns: 1fr; }
 }
+
+/* self-hosted model settings */
+.settings-group { display: flex; flex-direction: column; gap: 12px; }
+.settings-group[hidden] { display: none; }
+.settings .inline { display: flex; gap: 8px; }
+.settings .inline input { flex: 1; min-width: 0; }
+.mode-badge { margin-left: 6px; font-size: 12px; padding: 1px 6px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); }
