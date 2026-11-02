@@ -48,6 +48,8 @@ python3 portal/scripts/serve_local.py --model qwen3:8b
 # 3. 打開 http://localhost:8000
 ```
 
+**Windows 一鍵啟動**：repo 根目錄有 `Start.bat` 和 `Stop.bat`，雙擊或從其他工具執行都可以。`Start.bat` 會找到 Python、需要時幫你啟動 Ollama（上下文長度 16384）、在背景啟動入口並打開瀏覽器，然後就結束，不會卡住；`Stop.bat` 只會關掉這個入口。模型名稱、服務網址、埠號寫在 `Start.bat` 最上面，可以直接改，也可以先設好 `PORTAL_MODEL`、`PORTAL_UPSTREAM`、`PORTAL_PORT`、`PORTAL_HOST`、`PORTAL_OPEN_BROWSER` 環境變數。執行紀錄在 `portal/serve_local.log`。
+
 其他服務只要換 `--upstream`：
 
 | 服務 | 啟動參數 |
